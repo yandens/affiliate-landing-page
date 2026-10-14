@@ -9,7 +9,32 @@ export default defineNuxtConfig({
     enabled: true
   },
 
+  app: {
+    head: {
+      htmlAttrs: { lang: 'en' },
+      meta: [
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      ],
+      link: [
+        { rel: 'icon', href: '/favicon.ico' }
+      ]
+    }
+  },
+
   css: ['~/assets/css/main.css'],
+
+  ui: {
+    colorMode: false
+  },
+
+  runtimeConfig: {
+    public: {
+      affiliatePortalUrl: '',
+      affiliateTermsUrl: '',
+      affiliatePrivacyUrl: '',
+      affiliateEmail: ''
+    }
+  },
 
   routeRules: {
     '/': { prerender: true }
@@ -24,5 +49,12 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
+  },
+
+  fonts: {
+    families: [
+      { name: 'Funnel Display', provider: 'google', weights: [600, 700, 800] },
+      { name: 'Instrument Sans', provider: 'google', weights: [400, 500, 600] }
+    ]
   }
 })

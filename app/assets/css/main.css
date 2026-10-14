@@ -2,17 +2,60 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-sans: 'Public Sans', sans-serif;
+  --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Funnel Display', 'Instrument Sans', ui-sans-serif, sans-serif;
 
-  --color-green-50: #EFFDF5;
-  --color-green-100: #D9FBE8;
-  --color-green-200: #B3F5D1;
-  --color-green-300: #75EDAE;
-  --color-green-400: #00DC82;
-  --color-green-500: #00C16A;
-  --color-green-600: #00A155;
-  --color-green-700: #007F45;
-  --color-green-800: #016538;
-  --color-green-900: #0A5331;
-  --color-green-950: #052E16;
+  --color-brand-50: #EFF3FF;
+  --color-brand-100: #DCE4FF;
+  --color-brand-200: #BFCDFF;
+  --color-brand-300: #93A9FE;
+  --color-brand-400: #6580FB;
+  --color-brand-500: #3F5AF6;
+  --color-brand-600: #2B3EE8;
+  --color-brand-700: #2330C9;
+  --color-brand-800: #222BA2;
+  --color-brand-900: #212A80;
+  --color-brand-950: #161A4B;
+}
+
+:root {
+  --ui-radius: 0.375rem;
+  --ui-container: 76rem;
+  --ui-header-height: 4.25rem;
+}
+
+@layer base {
+  h1, h2, h3 {
+    font-family: var(--font-display);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--ui-header-height) + 1rem);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+}
+
+/* Payout Slip tear line: dashed rule with two half-circle notches cut into the slip edges.
+   The element must span the slip's full width (negative margin equal to the slip padding). */
+@utility slip-tear {
+  position: relative;
+  border-top: 2px dashed var(--ui-border-accented);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -0.75rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 9999px;
+    background: var(--ui-bg-muted);
+  }
+
+  &::before { left: -0.75rem; }
+  &::after { right: -0.75rem; }
 }

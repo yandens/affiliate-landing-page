@@ -1,53 +1,85 @@
-<script setup>
-useHead({
-  meta: [
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' }
-  ],
-  link: [
-    { rel: 'icon', href: '/favicon.ico' }
-  ],
-  htmlAttrs: {
-    lang: 'en'
-  }
-})
+<script setup lang="ts">
+import type { NavigationMenuItem } from '@nuxt/ui'
+import { content } from '~/data/landing'
 
-const title = 'Nuxt Starter Template'
-const description = 'A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours.'
+const { seo, header, footer } = content
 
 useSeoMeta({
-  title,
-  description,
-  ogTitle: title,
-  ogDescription: description,
-  ogImage: 'https://ui.nuxt.com/assets/templates/nuxt/starter-light.png',
+  title: seo.title,
+  description: seo.description,
+  ogTitle: seo.title,
+  ogDescription: seo.description,
+  ogSiteName: seo.siteName,
+  ogType: 'website',
+  ogImage: '/og-image.png',
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
   twitterCard: 'summary_large_image'
 })
+
+// exactHash keeps every item from looking active on `/` before a section is picked.
+const navItems: NavigationMenuItem[] = header.nav.map(item => ({ ...item, exactHash: true }))
+
+const registerUrl = usePortalLink('/register')
+const loginUrl = usePortalLink('/login')
+const links = useAffiliateLinks()
+
+const footerLinks: NavigationMenuItem[] = [
+  { label: footer.terms, to: links.terms, target: '_blank' },
+  { label: footer.privacy, to: links.privacy, target: '_blank' },
+  { label: footer.contact, to: links.mailto }
+]
+
+const copyright = footer.copyright.replace('{year}', String(new Date().getFullYear()))
 </script>
 
 <template>
   <UApp>
-    <UHeader>
-      <template #left>
-        <NuxtLink
-          to="/"
-          class="focus-visible:outline-3 outline-primary/25 rounded-md p-1 -ms-1"
-        >
-          <AppLogo class="w-auto h-6 shrink-0" />
-        </NuxtLink>
-
-        <TemplateMenu />
+    <UHeader
+      to="/"
+      :ui="{ title: 'rounded-md' }"
+    >
+      <template #title>
+        <span class="sr-only">{{ header.homeLabel }}</span>
+        <AppLogo
+          aria-hidden="true"
+          class="text-2xl"
+        />
       </template>
 
-      <template #right>
-        <UColorModeButton />
+      <UNavigationMenu
+        :items="navItems"
+        variant="link"
+      />
 
+      <template #right>
         <UButton
-          to="https://github.com/nuxt-ui-templates/starter"
-          target="_blank"
-          icon="i-simple-icons-github"
-          aria-label="GitHub"
+          :to="loginUrl"
+          :label="header.logIn"
           color="neutral"
           variant="ghost"
+          class="hidden sm:inline-flex"
+        />
+        <UButton
+          :to="registerUrl"
+          :label="header.join"
+          variant="soft"
+        />
+      </template>
+
+      <template #body>
+        <UNavigationMenu
+          :items="navItems"
+          orientation="vertical"
+          class="-mx-2.5"
+        />
+        <UButton
+          :to="loginUrl"
+          :label="header.logIn"
+          color="neutral"
+          variant="outline"
+          block
+          class="mt-6 sm:hidden"
         />
       </template>
     </UHeader>
@@ -56,24 +88,20 @@ useSeoMeta({
       <NuxtPage />
     </UMain>
 
-    <USeparator icon="i-simple-icons-nuxtdotjs" />
-
-    <UFooter>
+    <UFooter class="border-t border-default">
       <template #left>
-        <p class="text-sm text-muted">
-          Built with Nuxt UI • © {{ new Date().getFullYear() }}
-        </p>
+        <AppLogo class="text-xl" />
       </template>
 
+      <UNavigationMenu
+        :items="footerLinks"
+        variant="link"
+      />
+
       <template #right>
-        <UButton
-          to="https://github.com/nuxt-ui-templates/starter"
-          target="_blank"
-          icon="i-simple-icons-github"
-          aria-label="GitHub"
-          color="neutral"
-          variant="ghost"
-        />
+        <p class="text-sm text-muted">
+          {{ copyright }}
+        </p>
       </template>
     </UFooter>
   </UApp>
