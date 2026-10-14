@@ -1,64 +1,49 @@
-# Nuxt Starter Template
+# AFPro Affiliate Program landing page
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+A single prerendered page that shows prospects what they could earn as an AFPro affiliate and sends them to the affiliate portal to sign up. Built with Nuxt 4 and Nuxt UI 4.
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
-
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
-
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png" width="830" height="466">
-  </picture>
-</a>
-
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
-
-## Quick Start
-
-```bash [Terminal]
-npm create nuxt@latest -- -t ui
-```
-
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
+- What and why: [`PRD.md`](./PRD.md)
+- How it looks: [`DESIGN.md`](./DESIGN.md)
+- Working conventions: [`CLAUDE.md`](./CLAUDE.md)
 
 ## Setup
 
-Make sure to install the dependencies:
-
 ```bash
 pnpm install
+cp .env.example .env   # then fill in the real values
+pnpm dev               # http://localhost:3000
 ```
 
-## Development Server
+## Environment variables
 
-Start the development server on `http://localhost:3000`:
+| Variable | Used for |
+|----------|----------|
+| `NUXT_PUBLIC_AFFILIATE_PORTAL_URL` | Base URL for `/register` and `/login` |
+| `NUXT_PUBLIC_AFFILIATE_TERMS_URL` | Terms links in the ladder, FAQ, and footer |
+| `NUXT_PUBLIC_AFFILIATE_PRIVACY_URL` | Footer privacy link |
+| `NUXT_PUBLIC_AFFILIATE_EMAIL` | `mailto:` links in the FAQ, final CTA, and footer |
+| `NUXT_SITE_URL` | Canonical URL, absolute OG image URL, sitemap, and robots.txt |
+
+The page is prerendered, so these values are baked into the HTML at build time. Set them before `pnpm build`, and rebuild after changing them.
+
+## Content
+
+All copy, program facts (tiers, rates, cookie, payout schedule), FAQ entries, and testimonials live in [`app/data/landing.ts`](./app/data/landing.ts). The testimonials section stays hidden until that list has real, approved entries.
+
+## Scripts
 
 ```bash
-pnpm dev
+pnpm lint        # ESLint, including Tailwind class checks
+pnpm typecheck   # vue-tsc
+pnpm test        # vitest unit tests (calculator, formatting, portal links)
+pnpm build       # build and prerender to .output/
+pnpm preview     # serve the build locally
 ```
 
-## Production
+## Deploy (Vercel)
 
-Build the application for production:
+1. Import the repository in Vercel. The Nuxt preset is detected automatically, and no build settings need changing.
+2. Under Project Settings > Environment Variables, add the five variables above for Production (and Preview, if used).
+3. Deploy. `/`, `/sitemap.xml`, and `/robots.txt` are prerendered and served as static files.
 
-```bash
-pnpm build
-```
-
-Locally preview production build:
-
-```bash
-pnpm preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-
-## Renovate integration
-
-Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.
+The terms and privacy URLs must resolve before launch, because the page asks visitors to sign up.

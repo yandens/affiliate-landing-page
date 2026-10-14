@@ -167,3 +167,4 @@ Tools: `search-components`, `get-component`, `get-component-metadata` (props/slo
 | `NUXT_PUBLIC_AFFILIATE_TERMS_URL` | Terms link in ladder small print, FAQ, footer |
 | `NUXT_PUBLIC_AFFILIATE_PRIVACY_URL` | Footer privacy link |
 | `NUXT_PUBLIC_AFFILIATE_EMAIL` | `mailto:` links in FAQ and Final CTA |
+| `NUXT_SITE_URL` | Canonical URL, absolute OG image, sitemap, robots.txt (read by nuxt-site-config) |
