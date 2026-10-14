@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { computed, ref, type Ref } from 'vue'
 import { calculator } from '~/data/landing'
 import {
   clampOrderValue,
@@ -100,6 +101,18 @@ describe('formatIDR', () => {
 })
 
 describe('useCommissionCalculator', () => {
+  // Minimal stand-ins for Nuxt's auto-imports: useState returns one ref per key.
+  const states = new Map<string, Ref<unknown>>()
+  vi.stubGlobal('computed', computed)
+  vi.stubGlobal('useState', (key: string, init: () => unknown) => {
+    if (!states.has(key)) {
+      states.set(key, ref(init()))
+    }
+    return states.get(key)
+  })
+
+  afterEach(() => states.clear())
+
   it('starts from the defaults and shares state between callers', () => {
     const slip = useCommissionCalculator()
     const ladder = useCommissionCalculator()
