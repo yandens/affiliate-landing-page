@@ -36,5 +36,13 @@ jobs:
       - name: Test
         run: pnpm run test
 
+      # Placeholder values so the prerender (canonical URL, sitemap, portal links)
+      # can run in CI. Real values are set in the Vercel project.
       - name: Build
         run: pnpm run build
+        env:
+          NUXT_SITE_URL: https://affiliate.example.com
+          NUXT_PUBLIC_AFFILIATE_PORTAL_URL: https://portal.example.com
+          NUXT_PUBLIC_AFFILIATE_TERMS_URL: https://example.com/affiliate-terms
+          NUXT_PUBLIC_AFFILIATE_PRIVACY_URL: https://example.com/privacy
+          NUXT_PUBLIC_AFFILIATE_EMAIL: affiliates@example.com

@@ -3,7 +3,8 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 import { content } from '~/data/landing'
 
 const { seo, header, footer } = content
-const siteUrl = useSiteConfig().url.replace(/\/+$/, '')
+// Empty when NUXT_SITE_URL is unset, so URLs fall back to relative paths instead of crashing the render.
+const siteUrl = (useSiteConfig().url ?? '').replace(/\/+$/, '')
 
 useSeoMeta({
   title: seo.title,
