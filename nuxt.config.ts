@@ -2,7 +2,9 @@
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
-    '@nuxt/ui'
+    '@nuxt/ui',
+    '@nuxtjs/robots',
+    '@nuxtjs/sitemap'
   ],
 
   devtools: {
@@ -23,6 +25,11 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  // `url` comes from the NUXT_SITE_URL env var (read by nuxt-site-config).
+  site: {
+    name: 'AFPro'
+  },
+
   ui: {
     colorMode: false
   },
@@ -41,6 +48,12 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2026-06-30',
+
+  nitro: {
+    prerender: {
+      routes: ['/sitemap.xml', '/robots.txt']
+    }
+  },
 
   eslint: {
     config: {

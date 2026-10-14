@@ -3,6 +3,7 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 import { content } from '~/data/landing'
 
 const { seo, header, footer } = content
+const siteUrl = useSiteConfig().url.replace(/\/+$/, '')
 
 useSeoMeta({
   title: seo.title,
@@ -11,10 +12,25 @@ useSeoMeta({
   ogDescription: seo.description,
   ogSiteName: seo.siteName,
   ogType: 'website',
-  ogImage: '/og-image.png',
+  ogUrl: `${siteUrl}/`,
+  ogImage: `${siteUrl}/og-image.png`,
   ogImageWidth: 1200,
   ogImageHeight: 630,
+  ogImageAlt: seo.title,
   twitterCard: 'summary_large_image'
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: `${siteUrl}/` }],
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      'name': seo.siteName,
+      'url': `${siteUrl}/`
+    })
+  }]
 })
 
 // exactHash keeps every item from looking active on `/` before a section is picked.
