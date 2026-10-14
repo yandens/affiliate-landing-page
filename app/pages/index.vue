@@ -1,9 +1,6 @@
 <template>
   <div>
-    <section
-      id="estimate"
-      class="min-h-96 bg-muted"
-    />
+    <LandingHero />
     <section
       id="commission"
       class="min-h-96"

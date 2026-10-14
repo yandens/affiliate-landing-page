@@ -16,11 +16,16 @@ export interface Tier {
   rangeLabel: string
 }
 
+export interface OrderValuePreset {
+  value: number
+  label: string
+}
+
 export interface CalculatorSettings {
   minSales: number
   maxSales: number
   defaultSales: number
-  orderValuePresets: number[]
+  orderValuePresets: OrderValuePreset[]
   defaultOrderValue: number
   minOrderValue: number
   maxOrderValue: number
@@ -78,7 +83,7 @@ export interface LandingContent {
     rateLabel: string
     salesTotalLabel: string
     monthlyLabel: string
-    yearlyLabel: string
+    yearlyText: string
     footnote: string
   }
   ladder: {

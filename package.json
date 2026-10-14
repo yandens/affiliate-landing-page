@@ -8,7 +8,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "test": "vitest run"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.142",
@@ -18,9 +19,13 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.17.0",
+    "@nuxt/test-utils": "^4.3.3",
+    "@vue/test-utils": "^2.5.1",
     "eslint": "^10.12.0",
     "eslint-plugin-better-tailwindcss": "^4.9.0",
+    "happy-dom": "^21.0.1",
     "typescript": "^6.0.3",
+    "vitest": "^5.0.4",
     "vue-tsc": "^3.3.13"
   },
   "packageManager": "pnpm@12.11.2"

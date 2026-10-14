@@ -16,7 +16,11 @@ export const calculator: CalculatorSettings = {
   minSales: 1,
   maxSales: 200,
   defaultSales: 20,
-  orderValuePresets: [300_000, 750_000, 1_500_000],
+  orderValuePresets: [
+    { value: 300_000, label: 'Rp 300k' },
+    { value: 750_000, label: 'Rp 750k' },
+    { value: 1_500_000, label: 'Rp 1.5M' }
+  ],
   defaultOrderValue: 750_000,
   minOrderValue: 50_000,
   maxOrderValue: 50_000_000,
@@ -60,7 +64,7 @@ export const content: LandingContent = {
     rateLabel: 'Commission rate',
     salesTotalLabel: 'Sales value',
     monthlyLabel: 'Estimated monthly commission',
-    yearlyLabel: 'Over 12 months',
+    yearlyText: 'Over 12 months: {amount}',
     footnote: 'Estimate only. Actual commission depends on valid sales.'
   },
 
