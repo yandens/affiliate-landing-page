@@ -12,7 +12,7 @@ const registerUrl = usePortalLink('/register')
     :description="copy.description"
     orientation="horizontal"
     :ui="{
-      root: 'z-10 bg-muted',
+      root: 'bg-muted',
       container: 'gap-12 pt-16 pb-24 sm:gap-y-16 lg:grid-cols-12 lg:gap-x-12 lg:pt-24 lg:pb-32',
       wrapper: 'lg:col-span-7',
       description: 'max-w-[60ch]'
@@ -30,7 +30,7 @@ const registerUrl = usePortalLink('/register')
       </p>
     </template>
 
-    <div class="lg:col-span-5 lg:-mb-32 lg:translate-y-16">
+    <div class="lg:col-span-5">
       <LandingPayoutSlip />
     </div>
   </UPageHero>

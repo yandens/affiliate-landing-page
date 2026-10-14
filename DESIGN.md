@@ -74,7 +74,7 @@ Both are on Google Fonts and load through `@nuxt/fonts` (bundled with Nuxt UI).
 
 ### 3.3 Layout concept
 
-An asymmetric hero (copy left, slip right) whose slip slightly overlaps the next section, so the estimate visually "hands off" to the Commission Ladder. Below that, sections alternate between left-aligned statements and full-width visuals; no two consecutive sections share a composition.
+An asymmetric hero (copy left, slip right) with the slip sitting fully inside the hero's `bg-muted` band, so its tear-line notches always cut into the right background. Below that, sections alternate between left-aligned statements and full-width visuals; no two consecutive sections share a composition.
 
 ```
 Desktop (lg+)
@@ -154,7 +154,7 @@ No uppercase labels with wide tracking. Labels are sentence case.
 | `--ui-container` | `76rem` | Max content width |
 | `--ui-header-height` | `4.25rem` | Sticky header |
 
-- **Vertical rhythm** varies on purpose (RHYTHM 2): hero `pt-16 pb-24 lg:pt-24 lg:pb-32`, commission `py-24 lg:py-32` (extra top room for the slip overlap), how-it-works `py-20`, benefits `py-24`, FAQ `py-24`, Final CTA `py-16` around a contained block. Don't flatten these into one value.
+- **Vertical rhythm** varies on purpose (RHYTHM 2): hero `pt-16 pb-24 lg:pt-24 lg:pb-32`, commission `py-24 lg:py-32`, how-it-works `py-20`, benefits `py-24`, FAQ `py-24`, Final CTA `py-16` around a contained block. Don't flatten these into one value.
 - **Elevation:** flat everywhere (borders, not shadows). Exactly one shadow on the page: the Payout Slip (`shadow-xl shadow-slate-900/5`), because it is the one object that sits "on top of" the page.
 - **Breakpoints:** Tailwind defaults. Mobile-first; mandatory checks at **375px**, **768px**, **1280px**.
 
@@ -165,7 +165,7 @@ All landing components live in `app/components/landing/` with the `Landing*` pre
 | Section | File | Nuxt UI | Composition |
 |---------|------|---------|-------------|
 | Header | `app.vue` | `UHeader`, `UNavigationMenu`, `UButton` | Wordmark left, nav center, "Log in" (`variant="ghost" color="neutral"`) + "Join free" (`color="primary"`) right. No `UColorModeButton`. Nav hrefs: `#how-it-works`, `#commission`, `#benefits`, `#faq`. |
-| Hero `#estimate` | `LandingHero.vue` | `UPageHero` (`orientation="horizontal"`), `UButton` | `bg-muted`. 7/5 column split. Left: H1, description, one primary button with trailing `i-lucide-arrow-right` (the **only** arrow on the page), then a single text line of program facts in `text-sm text-muted`. No headline badge. Right: `<LandingPayoutSlip />`, translated down on `lg` (`lg:translate-y-16`) to overlap the next section. |
+| Hero `#estimate` | `LandingHero.vue` | `UPageHero` (`orientation="horizontal"`), `UButton` | `bg-muted`. 7/5 column split. Left: H1, description, one primary button with trailing `i-lucide-arrow-right` (the **only** arrow on the page), then a single text line of program facts in `text-sm text-muted`. No headline badge. Right: `<LandingPayoutSlip />`, contained within the hero (no overlap into the next section). |
 | Payout Slip | `LandingPayoutSlip.vue` | `UFormField`, `USlider`, `UInputNumber`, `URadioGroup` | Surface `bg-default rounded-xl ring ring-default shadow-xl shadow-slate-900/5 p-6`. **Top:** inputs (sales/month slider + number; order value as `URadioGroup` presets + custom). **Middle:** tear line, `slip-tear` utility (§9.2), spanning the slip's full width. **Bottom:** ledger rows (Tier, Rate, Order value × sales) as label/value pairs with dotted leaders, then the monthly total on an amber highlight (`bg-amber-300 px-2 -mx-2 rounded-md`), then yearly in `text-muted`, then the estimate footnote. Wrap outputs in `aria-live="polite"`. |
 | Commission `#commission` | `LandingLadder.vue` | `UPageSection` (heading only), plain markup for the ladder | `bg-default`. Left-aligned H2 + description. Three steps as columns of **increasing height** (`h-24 / h-36 / h-48` on `lg`), each a `rounded-lg` block: tier name, sales range, rate in Display 800. Inactive steps `bg-brand-50 text-brand-700`; active step (from calculator state) `bg-amber-300 text-slate-900`. On mobile, stack as rows with increasing width. Small print below with terms link. |
 | How It Works `#how-it-works` | `LandingSteps.vue` | `UPageSection`, `UTimeline` | `bg-default` with `border-t border-default`. Horizontal `UTimeline` on `lg`, vertical below. Numbers are real order, so number markers are allowed. Secondary button "Join now" (`variant="outline"`, no arrow). |
